@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrialGame", "TrialGame\TrialGame\TrialGame.csproj", "{A0F55E5E-D5F9-4514-98FD-167A1ECE93B3}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "TrialGameContent", "TrialGame\TrialGameContent\TrialGameContent.contentproj", "{395C719F-A75E-4E1B-92B6-11068D49770D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0F55E5E-D5F9-4514-98FD-167A1ECE93B3}.Debug|x86.ActiveCfg = Debug|x86
+		{A0F55E5E-D5F9-4514-98FD-167A1ECE93B3}.Debug|x86.Build.0 = Debug|x86
+		{A0F55E5E-D5F9-4514-98FD-167A1ECE93B3}.Release|x86.ActiveCfg = Release|x86
+		{A0F55E5E-D5F9-4514-98FD-167A1ECE93B3}.Release|x86.Build.0 = Release|x86
+		{395C719F-A75E-4E1B-92B6-11068D49770D}.Debug|x86.ActiveCfg = Debug|x86
+		{395C719F-A75E-4E1B-92B6-11068D49770D}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
