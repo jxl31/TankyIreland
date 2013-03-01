@@ -15,20 +15,17 @@ namespace TrialGame
     public class Character:GameEntity
     {
         int border = 20;
-        int topBorder = 460;
-        int walkspeed = 260;
+        int walkspeed = 300;
+        float rot = 0.0f;
+        int rotationSpeed = 3;
 
         public override void LoadContent()
         {
             Look = new Vector2(0, -1);
             
             //tank body
-            Sprite = Game1.Instance.Content.Load<Texture2D>("tankbody");
+            Sprite = Game1.Instance.Content.Load<Texture2D>("tank");
             Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height - border - Sprite.Height/2));
-
-            //tank turret
-            Sprite2 = Game1.Instance.Content.Load<Texture2D>("tankturret");
-            turretPosition = new Vector2((Game1.Instance.Background.Width/2 + (Sprite.Width-60)),Game1.Instance.Background.Height-border - (Sprite.Height-20));
         }
 
         float fireRate = 2.0f;
@@ -39,14 +36,16 @@ namespace TrialGame
             KeyboardState kState = Keyboard.GetState();
             float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            Look.X = (float)Math.Sin(rot);
+            Look.Y = -(float)Math.Cos(rot);
+
             float hasToPass = 0.70f / fireRate;
 
             for (int i = 0; i < Game1.Instance.EnemyBullet.Count(); i++)
             {
                 if (BoundingBox.Intersects(Game1.Instance.EnemyBullet[i].BoundingBox))
                 {
-                    Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height/2));
-                    turretPosition = new Vector2((Game1.Instance.Width / 2 + (Sprite.Width - 60)), Game1.Instance.Height - border - (Sprite.Height - 20));
+                    Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height / 2));
                     Game1.Instance.EnemyBullet[i].Alive = false;
                     Game1.Instance.enemyHitPlayer();
                     if (Game1.Instance.Lives == 0)
@@ -62,8 +61,8 @@ namespace TrialGame
                 Game1.Instance.CharacterBullets.Add(bullet);
                 Game1.Instance.Entities.Add(bullet);
                 float distFromCharacterToBullet = 25.0f;
-                bullet.Position = this.Position + Look * distFromCharacterToBullet;
-                bullet.Look = this.Look;
+                bullet.Position = Position + Look * distFromCharacterToBullet;
+                bullet.Look = Look;
                 bullet.LoadContent();
                 if (Game1.Instance.Ammo != 0)
                     Game1.Instance.Ammo--;
@@ -75,39 +74,21 @@ namespace TrialGame
 
             elapsedTime += timeDelta;
 
-            if (kState.IsKeyDown(Keys.A) || kState.IsKeyDown(Keys.Left))
-            {
-                //if (Position.X > border + Sprite.Width/2)
-                //{
-                    Position.X -= timeDelta * walkspeed;
-                    turretPosition.X -= timeDelta * walkspeed;
-                //}
-            }
-
-            if ((kState.IsKeyDown(Keys.D) || kState.IsKeyDown(Keys.Right)))
-            {
-                //if (Position.X < Game1.Instance.Width - border - Sprite.Width / 2)
-                //{
-                    Position.X += timeDelta * walkspeed;
-                    turretPosition.X += timeDelta * walkspeed;
-                //}
-            }
-
-            if ((kState.IsKeyDown(Keys.W) || kState.IsKeyDown(Keys.Up)))
+            if (kState.IsKeyDown(Keys.Left)) rot -= timeDelta * rotationSpeed;
+            if (kState.IsKeyDown(Keys.Right)) rot += timeDelta * rotationSpeed;
+            if (kState.IsKeyDown(Keys.Up))
             {
                 //if (Position.Y > topBorder)
                 //{
-                    Position.Y -= timeDelta * walkspeed;
-                    turretPosition.Y -= timeDelta * walkspeed;
+                Position += timeDelta * walkspeed * Look;
                 //}
             }
 
-            if ((kState.IsKeyDown(Keys.S) || kState.IsKeyDown(Keys.Down)))
+            if (kState.IsKeyDown(Keys.Down))
             {
                 //if (Position.Y < Game1.Instance.Height - border - Sprite.Height / 2)
                 //{  
-                    Position.Y += timeDelta * walkspeed;
-                    turretPosition.Y += timeDelta * walkspeed;
+                Position -= timeDelta * walkspeed * Look;
                 //}
             }
         }
@@ -119,13 +100,7 @@ namespace TrialGame
             center.X = Sprite.Width / 2;
             center.Y = Sprite.Height / 2;
 
-            //tank turret
-            Vector2 center1 = new Vector2();
-            center1.X = Sprite2.Width / 2;
-            center1.Y = Sprite2.Height / 2;
-
-            Game1.Instance.spriteBatch.Draw(Sprite, Position, null, Color.White, 0.0f, center, 1.0f, SpriteEffects.None, 1);
-            Game1.Instance.spriteBatch.Draw(Sprite2, turretPosition, null, Color.White, 0.0f, center1, 1.0f, SpriteEffects.None, 1);
+            Game1.Instance.spriteBatch.Draw(Sprite, Position, null, Color.White, rot, center, 1.0f, SpriteEffects.None, 1);
 
         }
 

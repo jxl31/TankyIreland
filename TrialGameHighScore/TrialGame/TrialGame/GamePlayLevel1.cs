@@ -107,11 +107,11 @@ namespace TrialGame
             {
                 game.Entities[i].Draw(gameTime);
             }
-            spriteBatch.DrawString(game.SpriteFont, "Enemy Left: " + game.EnemyCount, new Vector2(10, 10), Color.Black);
-            spriteBatch.DrawString(game.SpriteFont, "Lives Left: " + game.Lives, new Vector2(10, 30), Color.Black);
-            spriteBatch.DrawString(game.SpriteFont, "Ammos Left: " + game.Ammo, new Vector2(10, 50), Color.Black);
-            spriteBatch.DrawString(game.SpriteFont, "Time: "+timer.ToString("0.00"), new Vector2(250, 60), Color.Black);
-            spriteBatch.DrawString(game.SpriteFont, "Time Limit: " + game.TimeLimit.ToString("0.00"), new Vector2(250, 30), Color.Red);
+            spriteBatch.DrawString(game.SpriteFont, "Enemy Left: " + game.EnemyCount, new Vector2(game.Entities[0].Position.X-350,game.Entities[0].Position.Y-255), Color.Black);
+            spriteBatch.DrawString(game.SpriteFont, "Lives Left: " + game.Lives, new Vector2(game.Entities[0].Position.X - 350, game.Entities[0].Position.Y - 235), Color.Black);
+            spriteBatch.DrawString(game.SpriteFont, "Ammos Left: " + game.Ammo, new Vector2(game.Entities[0].Position.X - 350, game.Entities[0].Position.Y - 215), Color.Black);
+            spriteBatch.DrawString(game.SpriteFont, "Time: " + timer.ToString("0.00"), new Vector2(game.Entities[0].Position.X, game.Entities[0].Position.Y - 255), Color.Black);
+            spriteBatch.DrawString(game.SpriteFont, "Time Limit: " + game.TimeLimit.ToString("0.00"), new Vector2(game.Entities[0].Position.X + 280, game.Entities[0].Position.Y - 255), Color.Red);
             spriteBatch.End();
         }
     }

@@ -16,20 +16,12 @@ namespace TrialGame
     {
         public Vector2 Position;
         public Vector2 Look;
-        public Vector2 turretPosition;
 
         private Texture2D sprite;
         public Texture2D Sprite
         {
             get { return sprite; }
             set { sprite = value; }
-        }
-
-        private Texture2D sprite2;
-        public Texture2D Sprite2
-        {
-            get { return sprite2; }
-            set { sprite2 = value; }
         }
 
         private bool alive;

@@ -243,6 +243,7 @@ namespace TrialGame
             startScreen = new StartScreen(this);
             gameState = GAMESTATE.START;
             Background = Content.Load<Texture2D>("floormap");
+            spriteFont = Content.Load<SpriteFont>("Arial");
 
             base.LoadContent();
         }

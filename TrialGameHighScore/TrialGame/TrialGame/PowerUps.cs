@@ -16,7 +16,7 @@ namespace TrialGame
         {
             which = (int)(new Random().NextDouble() * 2);
             Sprite = Game1.Instance.Content.Load<Texture2D>("power"+ which);
-            Position = new Vector2(random.Next(Game1.Instance.Width - 40), random.Next(Game1.Instance.Height / 2));
+            Position = new Vector2(random.Next(Game1.Instance.Background.Width - Sprite.Width), random.Next(Game1.Instance.Background.Height-Sprite.Height));
         }
 
         public override void Update(GameTime gameTime)
