@@ -25,8 +25,8 @@ namespace TrialGame
 
         public void Update(GameTime gameTime, Vector2 playerPos, Rectangle playerRec)
         {
-            center = new Vector2(playerPos.X + (playerRec.Width / 2) - 400,
-                playerPos.Y + (playerRec.Height / 2) - 300);
+            center = new Vector2(playerPos.X + (playerRec.Width/2) - 400,
+                playerPos.Y + (playerRec.Height/2) - 300);
 
             transform = (Matrix.CreateScale(new Vector3(1, 1, 0)))/4 *
                 Matrix.CreateTranslation(new Vector3(-center.X, -center.Y, 0));
