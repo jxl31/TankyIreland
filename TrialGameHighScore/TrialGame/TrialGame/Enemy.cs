@@ -24,11 +24,20 @@ namespace TrialGame
         float fireRate;
         float elapsedTime = 1.0f;
 
+        bool playerSpotted = false;
+        float distance;
+        float oldDistance;
+
+        Vector2 velocity;
+
         public override void LoadContent()
         {
             Position = new Vector2(random.Next(Game1.Instance.Width - 40), random.Next(Game1.Instance.Height / 2));
             Look = new Vector2(0, -1);
-            Sprite = Game1.Instance.Content.Load<Texture2D>("smalltank");
+            Sprite = Game1.Instance.Content.Load<Texture2D>("enemyTank");
+            distance = 400;
+
+            oldDistance = distance;
         }
 
         public override void Update(GameTime gameTime)
@@ -67,15 +76,25 @@ namespace TrialGame
             }
             elapsedTime += timeDelta;
 
-            int screenWidth = Game1.Instance.Width;
-            if (Position.X <= screenWidth / 2 && statusPos)
+            //int screenWidth = Game1.Instance.Width;
+            //if (Position.X <= screenWidth / 2 && statusPos)
+            //{
+            //    movingLeft = true;
+            //    statusPos = !statusPos;
+            //}
+
+            //if (movingLeft) moveLeft(timeDelta);
+            //else moveRight(timeDelta);
+
+            int screenHeight = Game1.Instance.Background.Height;
+            Position += velocity;
+
+            if (distance >= 0)
             {
-                movingLeft = true;
-                statusPos = !statusPos;
+
             }
 
-            if (movingLeft) moveLeft(timeDelta);
-            else moveRight(timeDelta);
+
         }
 
         public void moveLeft(float timeDelta)
