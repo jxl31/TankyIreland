@@ -14,10 +14,11 @@ namespace TrialGame
 {
     public class Character:GameEntity
     {
-        int border = 20;
         int walkspeed = 300;
-        float rot = 0.0f;
         int rotationSpeed = 3;
+
+        //tank body
+        Vector2 center = new Vector2();
 
         public override void LoadContent()
         {
@@ -25,7 +26,11 @@ namespace TrialGame
             
             //tank body
             Sprite = Game1.Instance.Content.Load<Texture2D>("tank");
-            Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height - border - Sprite.Height/2));
+            //Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height - border - Sprite.Height/2));
+            Position = new Vector2(Game1.Instance.Background.Width / 2, Game1.Instance.Background.Height / 2);
+            rot = 0.0f;
+            center.X = Sprite.Width / 2;
+            center.Y = Sprite.Height / 2;
         }
 
         float fireRate = 2.0f;
@@ -47,6 +52,7 @@ namespace TrialGame
                 {
                     Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height / 2));
                     Game1.Instance.EnemyBullet[i].Alive = false;
+                    rot = 0.0f;
                     Game1.Instance.enemyHitPlayer();
                     if (Game1.Instance.Lives == 0)
                         Game1.Instance.GameOver();
@@ -76,32 +82,17 @@ namespace TrialGame
 
             if (kState.IsKeyDown(Keys.Left)) rot -= timeDelta * rotationSpeed;
             if (kState.IsKeyDown(Keys.Right)) rot += timeDelta * rotationSpeed;
-            if (kState.IsKeyDown(Keys.Up))
-            {
-                //if (Position.Y > topBorder)
-                //{
-                Position += timeDelta * walkspeed * Look;
-                //}
-            }
+            if (kState.IsKeyDown(Keys.Up)) Position += timeDelta * walkspeed * Look;
+            if (kState.IsKeyDown(Keys.Down)) Position -= timeDelta * walkspeed * Look;
 
-            if (kState.IsKeyDown(Keys.Down))
-            {
-                //if (Position.Y < Game1.Instance.Height - border - Sprite.Height / 2)
-                //{  
-                Position -= timeDelta * walkspeed * Look;
-                //}
-            }
+            //brings character back to center of screen
+            if(!Game1.Instance.BackgroundRec.Contains(BoundingBox))
+                Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height / 2));
         }
 
         public override void Draw(GameTime gameTime)
         {
-            //tank body
-            Vector2 center = new Vector2();
-            center.X = Sprite.Width / 2;
-            center.Y = Sprite.Height / 2;
-
             Game1.Instance.spriteBatch.Draw(Sprite, Position, null, Color.White, rot, center, 1.0f, SpriteEffects.None, 1);
-
         }
 
     }

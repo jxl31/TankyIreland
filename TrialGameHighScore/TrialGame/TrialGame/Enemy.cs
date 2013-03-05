@@ -32,8 +32,8 @@ namespace TrialGame
 
         public override void LoadContent()
         {
-            Position = new Vector2(random.Next(Game1.Instance.Width - 40), random.Next(Game1.Instance.Height / 2));
-            Look = new Vector2(0, -1);
+            Position = new Vector2(random.Next(Game1.Instance.Background.Width-50), random.Next(Game1.Instance.Height/2-300));
+            Look = new Vector2(0, 1);
             Sprite = Game1.Instance.Content.Load<Texture2D>("enemyTank");
             distance = 400;
 
@@ -45,30 +45,38 @@ namespace TrialGame
             if (Game1.Instance.GameIndex == 1)
             {
                 fireRate = 1f;
-                enemyWalkSpeed = 80;
+                enemyWalkSpeed = 110;
             }
 
             if (Game1.Instance.GameIndex == 2)
             {
                 fireRate = .8f;
-                enemyWalkSpeed = 100;
+                enemyWalkSpeed = 130;
             }
 
             if (Game1.Instance.GameIndex == 3)
             {
                 fireRate = .7f;
-                enemyWalkSpeed = 120;
+                enemyWalkSpeed = 150;
             }
 
             float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            for (int i = 0; i < Game1.Instance.CharacterBullets.Count(); i++)
+            {
+                if (BoundingBox.Intersects(Game1.Instance.CharacterBullets[i].BoundingBox))
+                {
+                    Alive = !Alive;
+                    Game1.Instance.CharacterBullets[i].Alive = !Alive;
+                }
+            }
+
             if (elapsedTime >= fireRate)
             {
-                EnemyProjectile enemyBullet = new EnemyProjectile();
+                EnemyProjectile enemyBullet = new EnemyProjectile(this);
                 Game1.Instance.EnemyBullet.Add(enemyBullet);
-                float distFromEnemyToBullet = -25.0f;
-                enemyBullet.Position = this.Position + Look * distFromEnemyToBullet;
-                enemyBullet.Look = this.Look;
+                float distFromEnemyToBullet = 28.0f;
+                enemyBullet.Position = Position + enemyBullet.Look * distFromEnemyToBullet;
                 enemyBullet.LoadContent();
 
                 Game1.Instance.Entities.Add(enemyBullet);
@@ -86,13 +94,15 @@ namespace TrialGame
             //if (movingLeft) moveLeft(timeDelta);
             //else moveRight(timeDelta);
 
-            int screenHeight = Game1.Instance.Background.Height;
-            Position += velocity;
+            //int screenHeight = Game1.Instance.Background.Height;
+            //Position += velocity;
 
-            if (distance >= 0)
-            {
+            //if (distance >= 0)
+            //{
 
-            }
+            //}
+
+            Position += timeDelta * enemyWalkSpeed * Look;
 
 
         }

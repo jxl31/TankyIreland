@@ -21,13 +21,49 @@ namespace TrialGame
 
         public override void Update(GameTime gameTime)
         {
-            for (int i = 0; i < Game1.Instance.CharacterBullets.Count(); i++)
-                if (BoundingBox.Intersects(Game1.Instance.CharacterBullets[i].BoundingBox))
+            if (BoundingBox.Intersects(Game1.Instance.Entities[0].BoundingBox))
+            {
+                if (which == 0) LifeUp();
+                if (which == 1) AmmoUp();
+                if (which == 2) Abomination();
+            }
+            else
+            {
+                for (int i = 0; i < Game1.Instance.CharacterBullets.Count(); i++)
                 {
-                    if (which == 0) LifeUp(i);
-                    if (which == 1) AmmoUp(i);
-                    if (which == 2) Abomination(i);
-                }      
+                    if (BoundingBox.Intersects(Game1.Instance.CharacterBullets[i].BoundingBox))
+                    {
+                        if (which == 0) LifeUp(i);
+                        if (which == 1) AmmoUp(i);
+                        if (which == 2) Abomination(i);
+                    }
+                }
+            }
+        }
+        public void LifeUp()
+        {
+            Alive = false;
+            Game1.Instance.PowerFlag = true;
+            if (Game1.Instance.Lives < 3)
+                Game1.Instance.Lives++;
+        }
+
+        public void AmmoUp()
+        {
+            Alive = false;
+            Game1.Instance.PowerFlag = true;
+            Game1.Instance.Ammo += 5;
+        }
+
+        public void Abomination()
+        {
+            Alive = false;
+            Game1.Instance.PowerFlag = true;
+            for (int i = 0; i < Game1.Instance.Enemies.Count(); i++)
+            {
+                Game1.Instance.Enemies[i].Alive = false;
+                Game1.Instance.playerHitEnemy();
+            }
         }
 
         public void LifeUp(int x)

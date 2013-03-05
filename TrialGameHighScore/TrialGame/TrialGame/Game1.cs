@@ -59,23 +59,6 @@ namespace TrialGame
 
         public void enemyHitPlayer() { Lives--; }
 
-        public float enemySpawner()
-        {
-            Enemy enemy = new Enemy();
-            enemy.LoadContent();
-            Entities.Add(enemy);
-            Enemies.Add(enemy);
-
-            return 0f;
-        }
-
-        public void powerSpawner()
-        {
-            PowerUps power = new PowerUps();
-            power.LoadContent();
-            Entities.Add(power);
-        }
-
         public float TimeLimit { get; set; }
         public int EnemyCount { get; set; }
         public int Lives { get; set; }
@@ -84,6 +67,7 @@ namespace TrialGame
         public bool PowerFlag { get; set; }
         public int Score { get; set; }
         public Texture2D Background { get; set; }
+        public Rectangle BackgroundRec { get; set; }
 
         StartScreen startScreen;
         GameOverScreen gameOverScreen;
@@ -219,6 +203,23 @@ namespace TrialGame
 
         GAMESTATE gameState;
 
+        public float enemySpawner()
+        {
+            Enemy enemy = new Enemy();
+            enemy.LoadContent();
+            Entities.Add(enemy);
+            Enemies.Add(enemy);
+
+            return 0f;
+        }
+
+        public void powerSpawner()
+        {
+            PowerUps power = new PowerUps();
+            power.LoadContent();
+            Entities.Add(power);
+        }
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -231,6 +232,8 @@ namespace TrialGame
             // TODO: Add your initialization logic here
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 800;
+
+            //graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -244,6 +247,8 @@ namespace TrialGame
             gameState = GAMESTATE.START;
             Background = Content.Load<Texture2D>("floormap");
             spriteFont = Content.Load<SpriteFont>("Arial");
+
+            BackgroundRec = new Rectangle(-2, -2, (int)Background.Width + 4, (int)Background.Height + 4);
 
             base.LoadContent();
         }

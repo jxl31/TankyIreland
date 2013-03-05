@@ -16,6 +16,7 @@ namespace TrialGame
     {
         public Vector2 Position;
         public Vector2 Look;
+        public float rot;
 
         private Texture2D sprite;
         public Texture2D Sprite
