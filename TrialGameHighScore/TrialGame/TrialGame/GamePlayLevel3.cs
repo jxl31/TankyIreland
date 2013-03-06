@@ -19,6 +19,7 @@ namespace TrialGame
         private float enemySpawnTimer = 0f;
         private int[] powerSpawn = new int[9];
         private Random random = new Random(System.DateTime.Now.Millisecond);
+        private Camera camera;
 
         public GamePlayLevel3(Game1 game)
         {
@@ -31,11 +32,13 @@ namespace TrialGame
             game.Entities.Add(enemy);
             game.Enemies.Add(enemy);
 
-            for (int i = 0; i < 9; i++)
-                powerSpawn[i] = random.Next(60);
+            camera = new Camera(game.GraphicsDevice.Viewport);
 
-            for (int i = 0; i < game.Entities.Count(); i++)
+            for (int i = 0; i < game.Entities.Count; i++)
                 game.Entities[i].LoadContent();
+
+            for (int i = 0; i < 9; i++)
+                powerSpawn[i] = (int)random.Next(60);
 
             Game1.Instance.PowerFlag = true;
 
@@ -68,7 +71,7 @@ namespace TrialGame
                 enemySpawnTimer = Game1.Instance.enemySpawner();
 
             if (enemySpawnTimer > (float)3)
-                if (game.Enemies.Count() < 4)
+                if (game.Enemies.Count() < 10)
                     enemySpawnTimer = game.enemySpawner();
 
             for (int i = 0; i < game.Entities.Count(); i++)
@@ -89,20 +92,25 @@ namespace TrialGame
             for (int i = 0; i < game.Enemies.Count(); i++)
                 if (game.Enemies[i].Alive == false)
                     game.Enemies.RemoveAt(i);
+
+            camera.Update(gameTime, game.Entities[0].Position, game.Entities[0].BoundingBox);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            spriteBatch.Begin(SpriteSortMode.Deferred,
+                            BlendState.AlphaBlend,
+                            null, null, null, null,
+                            camera.transform);
             game.spriteBatch.Draw(game.Background, new Vector2(0, 0), null, Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 1);
             for (int i = 0; i < game.Entities.Count; i++)
             {
                 game.Entities[i].Draw(gameTime);
             }
-            spriteBatch.DrawString(game.SpriteFont, "Enemy Left: " + game.EnemyCount, new Vector2(10, 10), Color.Black);
-            spriteBatch.DrawString(game.SpriteFont, "Lives Left: " + game.Lives, new Vector2(10, 30), Color.Black);
-            spriteBatch.DrawString(game.SpriteFont, "Ammos Left: " + game.Ammo, new Vector2(10, 50), Color.Black);
-            spriteBatch.DrawString(game.SpriteFont, "Time: " + timer.ToString("0.00"), new Vector2(250, 60), Color.Black);
-            spriteBatch.DrawString(game.SpriteFont, "Time Limit: " + game.TimeLimit.ToString("0.00"), new Vector2(250, 30), Color.Red);
+
+            camera.Draw(spriteBatch, timer);
+
+            spriteBatch.End();
         }
     }
 }

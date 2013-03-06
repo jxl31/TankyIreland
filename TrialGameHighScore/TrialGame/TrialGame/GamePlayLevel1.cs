@@ -17,7 +17,7 @@ namespace TrialGame
         private Game1 game;
         private float timer = 0;
         private float enemySpawnTimer = 0f;
-        private int[] powerSpawn = new int[4];
+        private int[] powerSpawn = new int[6];
         private Random random = new Random(System.DateTime.Now.Millisecond);
         private Camera camera;
 
@@ -37,7 +37,7 @@ namespace TrialGame
             for (int i = 0; i < game.Entities.Count; i++)
                 game.Entities[i].LoadContent();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 6; i++)
                 powerSpawn[i] = random.Next(30);
 
             Game1.Instance.PowerFlag = true;
@@ -51,7 +51,7 @@ namespace TrialGame
             enemySpawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             if(Game1.Instance.PowerFlag)
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 6; i++)
                     if (powerSpawn[i] == (int)timer)
                     {
                         Game1.Instance.powerSpawner();
@@ -64,14 +64,14 @@ namespace TrialGame
                 game.Congrats();
             }
 
-            //if (timer >= timeLimit)
-            //    game.GameOver();
+            if (timer >= timeLimit)
+                game.GameOver();
 
             if (game.Enemies.Count() == 0)
                 enemySpawnTimer = Game1.Instance.enemySpawner();
 
-            if (enemySpawnTimer > (float)5)
-                if(game.Enemies.Count() < 4)
+            if (enemySpawnTimer > (float)4)
+                if(game.Enemies.Count() < 6)
                     enemySpawnTimer = game.enemySpawner();
 
             for (int i = 0; i < game.Entities.Count(); i++)

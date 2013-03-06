@@ -328,19 +328,11 @@ namespace TrialGame
                     break;
                 case GAMESTATE.LEVEL2:
                     if (level2 != null)
-                    {
-                        spriteBatch.Begin();
                         level2.Draw(spriteBatch, gameTime);
-                        spriteBatch.End();
-                    }
                     break;
                 case GAMESTATE.LEVEL3:
                     if (level3 != null)
-                    {
-                        spriteBatch.Begin();
                         level3.Draw(spriteBatch, gameTime);
-                        spriteBatch.End();
-                    }
                     break;
                 case GAMESTATE.END:
                     if (gameOverScreen != null)

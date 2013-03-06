@@ -24,11 +24,8 @@ namespace TrialGame
         float fireRate;
         float elapsedTime = 1.0f;
 
-        bool playerSpotted = false;
         float distance;
         float oldDistance;
-
-        Vector2 velocity;
 
         public override void LoadContent()
         {
@@ -51,13 +48,13 @@ namespace TrialGame
             if (Game1.Instance.GameIndex == 2)
             {
                 fireRate = .8f;
-                enemyWalkSpeed = 130;
+                enemyWalkSpeed = 140;
             }
 
             if (Game1.Instance.GameIndex == 3)
             {
                 fireRate = .7f;
-                enemyWalkSpeed = 150;
+                enemyWalkSpeed = 170;
             }
 
             float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -94,16 +91,14 @@ namespace TrialGame
             //if (movingLeft) moveLeft(timeDelta);
             //else moveRight(timeDelta);
 
-            //int screenHeight = Game1.Instance.Background.Height;
-            //Position += velocity;
-
-            //if (distance >= 0)
-            //{
-
-            //}
-
             Position += timeDelta * enemyWalkSpeed * Look;
 
+            //if enemy reachers bottom of screen
+            if (Position.Y > Game1.Instance.Background.Height - Sprite.Height / 2)
+            {
+                Alive = false;
+                Game1.Instance.enemyHitPlayer();
+            }
 
         }
 

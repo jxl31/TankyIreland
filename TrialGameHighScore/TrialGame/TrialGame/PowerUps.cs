@@ -14,7 +14,7 @@ namespace TrialGame
 
         public override void LoadContent()
         {
-            which = (int)(new Random().NextDouble() * 2);
+            which = random.Next(0,2);
             Sprite = Game1.Instance.Content.Load<Texture2D>("power"+ which);
             Position = new Vector2(random.Next(Game1.Instance.Background.Width - Sprite.Width), random.Next(Game1.Instance.Background.Height-Sprite.Height));
         }
