@@ -26,7 +26,6 @@ namespace TrialGame
             
             //tank body
             Sprite = Game1.Instance.Content.Load<Texture2D>("tank");
-            //Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height - border - Sprite.Height/2));
             Position = new Vector2(Game1.Instance.Background.Width / 2, Game1.Instance.Background.Height / 2);
             rot = 0.0f;
             center.X = Sprite.Width / 2;
@@ -46,6 +45,18 @@ namespace TrialGame
 
             float hasToPass = 0.70f / fireRate;
 
+            for (int i = 0; i < Game1.Instance.Enemies.Count(); i++)
+            {
+                if (BoundingBox.Intersects(Game1.Instance.Enemies[i].BoundingBox))
+                {
+                    Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height / 2));
+                    rot = 0.0f;
+                    Game1.Instance.Enemies[i].Alive = false;
+                    Game1.Instance.enemyHitPlayer();
+                    Game1.Instance.playerHitEnemy();
+                }
+            }
+
             for (int i = 0; i < Game1.Instance.EnemyBullet.Count(); i++)
             {
                 if (BoundingBox.Intersects(Game1.Instance.EnemyBullet[i].BoundingBox))
@@ -54,9 +65,7 @@ namespace TrialGame
                     Game1.Instance.EnemyBullet[i].Alive = false;
                     rot = 0.0f;
                     Game1.Instance.enemyHitPlayer();
-                    if (Game1.Instance.Lives == 0)
-                        Game1.Instance.GameOver();
-                    if (Game1.Instance.Ammo == 0)
+                    if (Game1.Instance.Lives <= 0)
                         Game1.Instance.GameOver();
                 }
             }

@@ -75,46 +75,6 @@ namespace TrialGame
             spriteBatch.Draw(playerDot, radarOffset, Color.White);
         }
 
-        //public Radar(Vector2 centerPosition)
-        //{
-        //    radar = Game1.Instance.Content.Load<Texture2D>("floormap");
-        //    playerMini = Game1.Instance.Content.Load<Texture2D>("playermini");
-        //    enemyMini = Game1.Instance.Content.Load<Texture2D>("enemymini");
-        //    radarRec = new Rectangle((int)centerPosition.X + 10, (int)centerPosition.Y + 250, (int)(Game1.Instance.Background.Width * scale), (int)(Game1.Instance.Height * scale));
-        //}
-
-        //public void Update(GameTime gameTime)
-        //{
-        //    playerMiniPos.X = Game1.Instance.Entities[0].Position.X * scale + 10;
-        //    playerMiniPos.Y = Game1.Instance.Entities[0].Position.Y * scale + 270;
-
-        //    for (int i = 0; i < Game1.Instance.Enemies.Count(); i++)
-        //    {
-        //        Game1.Instance.Enemies
-        //    }
-        //}
-
-        //public Radar()
-        //{
-        //    radar = Game1.Instance.Content.Load<Texture2D>("floormap");
-        //    playerMini = Game1.Instance.Content.Load<Texture2D>("playermini");
-        //    enemyMini = Game1.Instance.Content.Load<Texture2D>("enemymini");
-        //    scale = .12f;
-        //}
-
-        //public void Update(GameTime gameTime)
-        //{
-        //    radarPos = new Vector2(Game1.Instance.Entities[0].Position.X - Game1.Instance.Width / 2 + Game1.Instance.Entities[0].Sprite.Width / 2,
-        //                           Game1.Instance.Entities[0].Position.Y + (scale * Game1.Instance.Background.Height) - Game1.Instance.Entities[0].Sprite.Height / 2);
-
-        //    playerMiniPos = new Vector2(radarPos.X, radarPos.Y);
-        //}
-
-        //public void Draw()
-        //{
-        //    Game1.Instance.spriteBatch.Draw(radar, radarPos, null, Color.YellowGreen, 0, Vector2.Zero, new Vector2(scale, scale), SpriteEffects.None, 0);
-
-        //    //Game1.Instance.spriteBatch.Draw(playerMini,playerMiniPos,
-        //}
+        
     }
 }

@@ -15,45 +15,37 @@ namespace TrialGame
     public class Enemy : GameEntity
     {
         Random random = new Random(System.DateTime.Now.Millisecond);
-        int border = 20;
         int enemyWalkSpeed;
-
-        bool statusPos = true; //flag to run one if statement in update just once
-        bool movingLeft = false;
 
         float fireRate;
         float elapsedTime = 1.0f;
-
-        float distance;
-        float oldDistance;
 
         public override void LoadContent()
         {
             Position = new Vector2(random.Next(Game1.Instance.Background.Width-50), random.Next(Game1.Instance.Height/2-300));
             Look = new Vector2(0, 1);
             Sprite = Game1.Instance.Content.Load<Texture2D>("enemyTank");
-            distance = 400;
+            rot = 0.0f;
 
-            oldDistance = distance;
         }
 
         public override void Update(GameTime gameTime)
         {
             if (Game1.Instance.GameIndex == 1)
             {
-                fireRate = 1f;
+                fireRate = 2f;
                 enemyWalkSpeed = 110;
             }
 
             if (Game1.Instance.GameIndex == 2)
             {
-                fireRate = .8f;
+                fireRate = 1.5f;
                 enemyWalkSpeed = 140;
             }
 
             if (Game1.Instance.GameIndex == 3)
             {
-                fireRate = .7f;
+                fireRate = 1f;
                 enemyWalkSpeed = 170;
             }
 
@@ -63,16 +55,17 @@ namespace TrialGame
             {
                 if (BoundingBox.Intersects(Game1.Instance.CharacterBullets[i].BoundingBox))
                 {
-                    Alive = !Alive;
-                    Game1.Instance.CharacterBullets[i].Alive = !Alive;
+                    Alive = false;
+                    Game1.Instance.CharacterBullets[i].Alive = false;
                 }
             }
 
             if (elapsedTime >= fireRate)
             {
-                EnemyProjectile enemyBullet = new EnemyProjectile(this);
+                EnemyProjectile enemyBullet = new EnemyProjectile(this, rot);
                 Game1.Instance.EnemyBullet.Add(enemyBullet);
                 float distFromEnemyToBullet = 28.0f;
+                enemyBullet.Look = Look;
                 enemyBullet.Position = Position + enemyBullet.Look * distFromEnemyToBullet;
                 enemyBullet.LoadContent();
 
@@ -81,18 +74,6 @@ namespace TrialGame
             }
             elapsedTime += timeDelta;
 
-            //int screenWidth = Game1.Instance.Width;
-            //if (Position.X <= screenWidth / 2 && statusPos)
-            //{
-            //    movingLeft = true;
-            //    statusPos = !statusPos;
-            //}
-
-            //if (movingLeft) moveLeft(timeDelta);
-            //else moveRight(timeDelta);
-
-            Position += timeDelta * enemyWalkSpeed * Look;
-
             //if enemy reachers bottom of screen
             if (Position.Y > Game1.Instance.Background.Height - Sprite.Height / 2)
             {
@@ -100,29 +81,21 @@ namespace TrialGame
                 Game1.Instance.enemyHitPlayer();
             }
 
-        }
+            Vector2 distance = Position - Game1.Instance.Entities[0].Position;
+            float distanceBetweenEnemyPlayer = distance.Length();
 
-        public void moveLeft(float timeDelta)
-        {
-            if (Position.X >= border)
-                Position.X -= timeDelta * enemyWalkSpeed;
-
+            if (distanceBetweenEnemyPlayer <= 300)
+            {
+                rot = (float)Math.Atan2(distance.Y, distance.X);
+            }
             else
             {
-                movingLeft = false;
-                moveRight(timeDelta);
+                Look = new Vector2(0, 1);
+                rot = (float)MathHelper.PiOver2 * 3;
             }
-        }
-
-        public void moveRight(float timeDelta)
-        {
-            if (Position.X <= Game1.Instance.Width - border - Sprite.Width)
-                Position.X += timeDelta * enemyWalkSpeed;
-            else
-            {
-                movingLeft = true;
-                moveLeft(timeDelta);
-            }
+            Position += timeDelta * enemyWalkSpeed * Look;
+            Look.X = -(float)(Math.Cos(rot));
+            Look.Y = -(float)(Math.Sin(rot));
         }
 
         public override void Draw(GameTime gameTime)
@@ -130,7 +103,7 @@ namespace TrialGame
             Vector2 center = new Vector2();
             center.X = Sprite.Width / 2;
             center.Y = Sprite.Height / 2;
-            Game1.Instance.spriteBatch.Draw(Sprite, Position, null, Color.White, 0.0f, center, 1.0f, SpriteEffects.None, 1);
+            Game1.Instance.spriteBatch.Draw(Sprite, Position, null, Color.White, rot + (float)MathHelper.PiOver2, center, 1.0f, SpriteEffects.None, 1);
         }
 
     }

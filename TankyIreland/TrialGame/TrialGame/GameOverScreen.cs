@@ -12,37 +12,53 @@ using Microsoft.Xna.Framework.Media;
 
 namespace TrialGame
 {
-    public class LevelSelectionScreen
+    public class GameOverScreen
     {
+        private KeyboardState lastState;
         private Game1 game;
-        private Texture2D Screen;
+        private SpriteFont title;
+        private Texture2D enemy;
         private Texture2D cursor;
-        private MouseState mState = Mouse.GetState();
+        private SpriteFont gameoverWriting;
+        private string[] choice = { "Retry", "Quit" };
+        private int hover = -1;
 
-        int hover = -1;
-        string[] levelChoice = { "Level One", "Level Two", "Level Three", "Quit" };
-
-        public LevelSelectionScreen(Game1 game)
+        public GameOverScreen(Game1 game)
         {
             this.game = game;
-            Screen = game.Content.Load<Texture2D>("screenBackground");
+
+            title = game.Content.Load<SpriteFont>("Massive");
+            enemy = game.Content.Load<Texture2D>("enemyTank");
             cursor = game.Content.Load<Texture2D>("cursor");
+            gameoverWriting = game.Content.Load<SpriteFont>("level");
+
+            lastState = Keyboard.GetState();
         }
 
         public void Update()
         {
+            //KeyboardState kState = Keyboard.GetState();
+            //if (kState.IsKeyDown(Keys.Enter) && lastState.IsKeyUp(Keys.Enter))
+            //{
+            //    game.levelSelect();
+            //}
+            //else if (kState.IsKeyDown(Keys.Escape) && lastState.IsKeyUp(Keys.Escape))
+            //{
+            //    game.Exit();
+            //}
+
             MouseState mState = Mouse.GetState();
             Vector2 mLook = new Vector2(mState.X, mState.Y);
             bool selected = false;
-            int startAt = 150;
+            int startAt = 200;
             int border = 20;
             hover = -1;
 
             if (mState.LeftButton == ButtonState.Pressed) selected = true;
 
-            for (int i = 0; i < levelChoice.Count(); i++)
+            for (int i = 0; i < choice.Count(); i++)
             {
-                Vector2 textSize = game.SpriteFont.MeasureString(levelChoice[0]);
+                Vector2 textSize = gameoverWriting.MeasureString(choice[0]);
                 Vector2 position = new Vector2(game.Width / 2 - (textSize.X / 2), startAt + ((textSize.Y + border) * i));
                 Rectangle textBound = new Rectangle((int)position.X, (int)position.Y, (int)textSize.X, (int)textSize.Y);
                 if ((mLook.X > textBound.X) && (mLook.X < textBound.X + textBound.Width)
@@ -52,40 +68,42 @@ namespace TrialGame
 
             if (selected)
             {
-                if (hover == 0) game.LevelOne();
-                if (hover == 1) game.LevelTwo();
-                if (hover == 2) game.LevelThree();
-                if (hover == 3) game.Exit();
+                if (hover == 0) game.levelSelect();
+                if (hover == 1) game.Exit();
             }
+
+            //lastState = kState;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             MouseState mState = Mouse.GetState();
+            Game1.Instance.GraphicsDevice.Clear(Color.SteelBlue);
             spriteBatch.Begin();
-            int startAt = 150;
+
+            CentreText("GameOver", 50, Color.Red, title);
+
+            int startAt = 200;
             int border = 20;
-            Vector2 textSize = game.SpriteFont.MeasureString("Hello");
-            spriteBatch.Draw(Screen, Vector2.Zero, Color.White);
+            Vector2 textSize = gameoverWriting.MeasureString("Hello");
 
-            CentreText("Choose Level", 50, Color.Red);
-
-            for (int i = 0; i < levelChoice.Count(); i++)
+            for (int i = 0; i < choice.Count(); i++)
             {
                 Vector2 position = new Vector2(game.Width / 2, startAt + ((textSize.Y + border) * i));
                 if (i == hover)
-                    CentreText(levelChoice[i], position.Y, Color.Green);
+                    CentreText(choice[i], position.Y, Color.Red,gameoverWriting);
 
                 else
-                    CentreText(levelChoice[i], position.Y, Color.Red);
+                    CentreText(choice[i], position.Y, Color.Black,gameoverWriting);
             }
 
+            spriteBatch.Draw(enemy, new Vector2(game.Width / 2 + 50, game.Height - enemy.Height), null, Color.White,(float)MathHelper.Pi,new Vector2(0,0), 2.0f, SpriteEffects.None, 1);
 
             spriteBatch.Draw(cursor, new Vector2(mState.X, mState.Y), Color.White);
             spriteBatch.End();
         }
 
-        public void CentreText(string text, float y, Color color)
+        public void CentreText(string text, float y, Color color, SpriteFont style)
         {
             Vector2 textSize = game.SpriteFont.MeasureString(text);
             int midX = game.Width / 2;

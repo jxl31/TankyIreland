@@ -19,15 +19,20 @@ namespace TrialGame
         private MouseState mState;
         private int hover=-1;
         private string[] choice = { "Retry", "View Score","Quit" };
-        private Texture2D background;
         private Game1 game;
         private StreamWriter sw;
+        private Texture2D player;
+        private SpriteFont congratsWriting { get; set; }
+        private SpriteFont title { get; set; }
 
         public CongratsScreen(Game1 game)
         {
             this.game = game;
-            background = game.Content.Load<Texture2D>("screenBackground");
+            //background = game.Content.Load<Texture2D>("screenBackground");
+            player = game.Content.Load<Texture2D>("tank");
             cursor = game.Content.Load<Texture2D>("cursor");
+            title = game.Content.Load<SpriteFont>("ScreenFont");
+            congratsWriting = game.Content.Load<SpriteFont>("level");
             sw = new StreamWriter("scores.txt", true);
             sw.WriteLine(game.Score);
             sw.Close();
@@ -68,28 +73,30 @@ namespace TrialGame
             Vector2 textSize = Game1.Instance.SpriteFont.MeasureString("Hello");
             int startAt = 300;
             int border = 20;
-
+            game.GraphicsDevice.Clear(Color.SteelBlue);
             spriteBatch.Begin();
-            spriteBatch.Draw(background,Vector2.Zero,Color.White);
-            CentreText("Congratulations", 150, Color.Blue);
-            CentreText("Your score is: "+game.Score, 200, Color.Orange);
+            //spriteBatch.Draw(background,Vector2.Zero,Color.White);
+            CentreText("Congratulations", 50.0f, Color.Red,title);
+            CentreText("Your score is: "+game.Score, 200, Color.Orange,congratsWriting);
 
             for (int i = 0; i < choice.Count(); i++)
             {
                 Vector2 position = new Vector2(game.Width/2, startAt + ((textSize.Y + border) * i));
                 if (i == hover)
-                    CentreText(choice[i], position.Y,Color.Green);
+                    CentreText(choice[i], position.Y,Color.Red,congratsWriting);
 
                 else
-                    CentreText(choice[i], position.Y, Color.Red);
+                    CentreText(choice[i], position.Y, Color.Black,congratsWriting);
             }
 
+
+            spriteBatch.Draw(player, new Vector2(Game1.Instance.Width / 2 - player.Width / 2, Game1.Instance.Height - player.Height - 50), Color.White);
             spriteBatch.Draw(cursor, new Vector2(mState.X, mState.Y), Color.White);
 
             spriteBatch.End();
         }
 
-        public void CentreText(string text, float y, Color color)
+        public void CentreText(string text, float y, Color color, SpriteFont style)
         {
             Vector2 textSize = game.SpriteFont.MeasureString(text);
             int midX = game.Width / 2;

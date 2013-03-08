@@ -49,7 +49,9 @@ namespace TrialGame
         {
             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             enemySpawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
+
+            if (Game1.Instance.Paused) return;
+
             if(Game1.Instance.PowerFlag)
                 for (int i = 0; i < 6; i++)
                     if (powerSpawn[i] == (int)timer)
@@ -102,13 +104,21 @@ namespace TrialGame
                             BlendState.AlphaBlend,
                             null, null, null, null,
                             camera.transform);
-            game.spriteBatch.Draw(game.Background, new Vector2(0, 0), null, Color.White, 0.0f, new Vector2(0, 0),1.0f, SpriteEffects.None, 1);
-            for (int i = 0; i < game.Entities.Count; i++)
+            if (Game1.Instance.Paused)
             {
-                game.Entities[i].Draw(gameTime);
+                Game1.Instance.GraphicsDevice.Clear(Color.Red);
+                spriteBatch.DrawString(game.SpriteFont, "Paused", game.Entities[0].Position, Color.Black);
             }
+            else
+            {
+                spriteBatch.Draw(game.Background, new Vector2(0, 0), null, Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 1);
+                for (int i = 0; i < game.Entities.Count; i++)
+                {
+                    game.Entities[i].Draw(gameTime);
+                }
 
-            camera.Draw(spriteBatch,timer);
+                camera.Draw(spriteBatch, timer);
+            }
 
             spriteBatch.End();
         }

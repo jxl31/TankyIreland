@@ -132,9 +132,10 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TrialGameContent\TrialGameContent.contentproj">
-      <Name>TrialGameContent</Name>
+    <ProjectReference Include="..\TrialGameContent\TankyIrelandContent.contentproj">
+      <Name>TankyIrelandContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{395C719F-A75E-4E1B-92B6-11068D49770D}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

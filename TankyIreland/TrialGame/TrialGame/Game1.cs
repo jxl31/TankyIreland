@@ -57,7 +57,7 @@ namespace TrialGame
 
         public void playerHitEnemy() { EnemyCount--; }
 
-        public void enemyHitPlayer() { Lives--; }
+        public void enemyHitPlayer() { Lives--;  }
 
         public float TimeLimit { get; set; }
         public int EnemyCount { get; set; }
@@ -68,6 +68,9 @@ namespace TrialGame
         public int Score { get; set; }
         public Texture2D Background { get; set; }
         public Rectangle BackgroundRec { get; set; }
+        public KeyboardState LKstate { get; set; }
+        public KeyboardState Kstate { get; set; }
+        public bool Paused { get; set; }
 
         StartScreen startScreen;
         GameOverScreen gameOverScreen;
@@ -114,8 +117,8 @@ namespace TrialGame
 
             Ammo = 20;
             TimeLimit = 30f;
-            EnemyCount = 5;
-            Lives = 3;
+            EnemyCount = 10;
+            Lives = 5;
         }
 
         public void LevelTwo()
@@ -129,7 +132,7 @@ namespace TrialGame
             Ammo = 40;
             TimeLimit = 40f;
             EnemyCount = 15;
-            Lives = 3;
+            Lives = 5;
         }
 
         public void LevelThree()
@@ -143,7 +146,7 @@ namespace TrialGame
             Ammo = 60;
             TimeLimit = 60f;
             EnemyCount = 25;
-            Lives = 3;
+            Lives = 5;
         }
 
         public void calculateScore(float timer, int ammoLeft, int livesLeft)
@@ -236,6 +239,9 @@ namespace TrialGame
             //graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
+            LKstate = Kstate = Keyboard.GetState();
+            Paused = false;
+
             base.Initialize();
         }
 
@@ -260,8 +266,9 @@ namespace TrialGame
 
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState kState = Keyboard.GetState();
-            if (kState.IsKeyDown(Keys.Escape))
+            Kstate = Keyboard.GetState();
+
+            if (Kstate.IsKeyDown(Keys.Escape))
                 this.Exit();
 
             switch (gameState)
@@ -277,18 +284,24 @@ namespace TrialGame
                 case GAMESTATE.LEVEL1:
                     if (level1 != null)
                     {
+                        if (Kstate.IsKeyDown(Keys.P) && LKstate.IsKeyUp(Keys.P))
+                            Paused = !Paused;
                         level1.Update(gameTime, TimeLimit);
                     }
                     break;
                 case GAMESTATE.LEVEL2:
                     if (level2 != null)
                     {
+                        if (Kstate.IsKeyDown(Keys.P) && LKstate.IsKeyUp(Keys.P))
+                            Paused = !Paused;
                         level2.Update(gameTime, TimeLimit);
                     }
                     break;
                 case GAMESTATE.LEVEL3:
                     if (level3 != null)
                     {
+                        if (Kstate.IsKeyDown(Keys.P) && LKstate.IsKeyUp(Keys.P))
+                            Paused = !Paused;
                         level3.Update(gameTime, TimeLimit);
                     }
                     break;
@@ -305,6 +318,8 @@ namespace TrialGame
                         scoreScreen.Update();
                     break;
             }
+
+            LKstate = Kstate;
 
             base.Update(gameTime);
         }
