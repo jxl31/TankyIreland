@@ -29,10 +29,10 @@ namespace TrialGame
         {
             this.game = game;
             //background = game.Content.Load<Texture2D>("screenBackground");
-            player = game.Content.Load<Texture2D>("tank");
+            player = game.Content.Load<Texture2D>("GamePlay/tank");
             cursor = game.Content.Load<Texture2D>("cursor");
-            title = game.Content.Load<SpriteFont>("ScreenFont");
-            congratsWriting = game.Content.Load<SpriteFont>("level");
+            title = game.Content.Load<SpriteFont>("Font/ScreenFont");
+            congratsWriting = game.Content.Load<SpriteFont>("Font/level");
             sw = new StreamWriter("scores.txt", true);
             sw.WriteLine(game.Score);
             sw.Close();

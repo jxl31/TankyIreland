@@ -251,8 +251,8 @@ namespace TrialGame
 
             startScreen = new StartScreen(this);
             gameState = GAMESTATE.START;
-            Background = Content.Load<Texture2D>("floormap");
-            spriteFont = Content.Load<SpriteFont>("Arial");
+            Background = Content.Load<Texture2D>("GamePlay/floormap");
+            spriteFont = Content.Load<SpriteFont>("Font/Arial");
 
             BackgroundRec = new Rectangle(-2, -2, (int)Background.Width + 4, (int)Background.Height + 4);
 

@@ -42,127 +42,94 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mainsprite.jpg">
-      <Name>mainsprite</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Arial.spritefont">
+    <Compile Include="Font\Arial.spritefont">
       <Name>Arial</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="endgame.png">
-      <Name>endgame</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="startScreen.png">
-      <Name>startScreen</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="levelselectionscreen.png">
-      <Name>levelselectionscreen</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="floormap.PNG">
+    <Compile Include="GamePlay\floormap.PNG">
       <Name>floormap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tank.png">
+    <Compile Include="GamePlay\tank.png">
       <Name>tank</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="screenBackground.png">
-      <Name>screenBackground</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="enemymini.png">
+    <Compile Include="Radar\enemymini.png">
       <Name>enemymini</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="playermini.png">
+    <Compile Include="Radar\playermini.png">
       <Name>playermini</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="enemyBullet.png">
+    <Compile Include="GamePlay\enemyBullet.png">
       <Name>enemyBullet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="playerBullet.png">
+    <Compile Include="GamePlay\playerBullet.png">
       <Name>playerBullet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="enemyTank.png">
+    <Compile Include="GamePlay\enemyTank.png">
       <Name>enemyTank</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="radarImage.png">
+    <Compile Include="Radar\radarImage.png">
       <Name>radarImage</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="powerupmini.png">
+    <Compile Include="Radar\powerupmini.png">
       <Name>powerupmini</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="power0.jpg">
+    <Compile Include="PowerUps\power0.jpg">
       <Name>power0</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="power1.png">
+    <Compile Include="PowerUps\power1.png">
       <Name>power1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="power2.jpg">
+    <Compile Include="PowerUps\power2.jpg">
       <Name>power2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ScreenFont.spritefont">
+    <Compile Include="Font\ScreenFont.spritefont">
       <Name>ScreenFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
@@ -176,14 +143,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Massive.spritefont">
+    <Compile Include="Font\Massive.spritefont">
       <Name>Massive</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="level.spritefont">
+    <Compile Include="Font\level.spritefont">
       <Name>level</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>

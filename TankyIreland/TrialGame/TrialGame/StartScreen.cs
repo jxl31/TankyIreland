@@ -28,12 +28,12 @@ namespace TrialGame
         {
             this.game = game;
             lastState = Keyboard.GetState();
-            Title = game.Content.Load<SpriteFont>("ScreenFont");
-            normalWriting = game.Content.Load<SpriteFont>("Arial");
+            Title = game.Content.Load<SpriteFont>("Font/ScreenFont");
+            normalWriting = game.Content.Load<SpriteFont>("Font/Arial");
             cursor = game.Content.Load<Texture2D>("cursor");
-            tankModel = game.Content.Load<Texture2D>("tank");
-            enemyModel = game.Content.Load<Texture2D>("enemyTank");
-            massiveWriting = game.Content.Load<SpriteFont>("Massive");
+            tankModel = game.Content.Load<Texture2D>("GamePlay/tank");
+            enemyModel = game.Content.Load<Texture2D>("GamePlay/enemyTank");
+            massiveWriting = game.Content.Load<SpriteFont>("Font/Massive");
         }
 
         public void Update()

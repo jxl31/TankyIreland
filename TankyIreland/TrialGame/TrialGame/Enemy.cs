@@ -24,7 +24,7 @@ namespace TrialGame
         {
             Position = new Vector2(random.Next(Game1.Instance.Background.Width-50), random.Next(Game1.Instance.Height/2-300));
             Look = new Vector2(0, 1);
-            Sprite = Game1.Instance.Content.Load<Texture2D>("enemyTank");
+            Sprite = Game1.Instance.Content.Load<Texture2D>("GamePlay/enemyTank");
             rot = 0.0f;
 
         }

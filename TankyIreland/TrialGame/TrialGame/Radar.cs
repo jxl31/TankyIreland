@@ -26,10 +26,10 @@ namespace TrialGame
 
         public Radar()
         {
-            playerDot = Game1.Instance.Content.Load<Texture2D>("playermini");
-            enemyDot = Game1.Instance.Content.Load<Texture2D>("enemymini");
-            powerUpDot = Game1.Instance.Content.Load<Texture2D>("powerupmini");
-            radarImage = Game1.Instance.Content.Load<Texture2D>("radarImage");
+            playerDot = Game1.Instance.Content.Load<Texture2D>("Radar/playermini");
+            enemyDot = Game1.Instance.Content.Load<Texture2D>("Radar/enemymini");
+            powerUpDot = Game1.Instance.Content.Load<Texture2D>("Radar/powerupmini");
+            radarImage = Game1.Instance.Content.Load<Texture2D>("Radar/radarImage");
             
 
             radarCenter = new Vector2(radarImage.Width / 2.0f, radarImage.Height / 2.0f);

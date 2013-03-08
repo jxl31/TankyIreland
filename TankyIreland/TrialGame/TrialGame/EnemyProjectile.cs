@@ -25,7 +25,7 @@ namespace TrialGame
 
         public override void LoadContent()
         {
-            Sprite = Game1.Instance.Content.Load<Texture2D>("enemyBullet");
+            Sprite = Game1.Instance.Content.Load<Texture2D>("GamePlay/enemyBullet");
 
         }
 

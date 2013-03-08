@@ -17,7 +17,7 @@ namespace TrialGame
         float maxDistance = 270.0f;
         public override void LoadContent()
         {
-            Sprite = Game1.Instance.Content.Load<Texture2D>("PlayerBullet");
+            Sprite = Game1.Instance.Content.Load<Texture2D>("GamePlay/PlayerBullet");
             rot = Game1.Instance.Entities[0].rot;
         }
 

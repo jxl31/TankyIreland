@@ -27,10 +27,10 @@ namespace TrialGame
         {
             this.game = game;
 
-            title = game.Content.Load<SpriteFont>("Massive");
-            enemy = game.Content.Load<Texture2D>("enemyTank");
+            title = game.Content.Load<SpriteFont>("Font/Massive");
+            enemy = game.Content.Load<Texture2D>("GamePlay/enemyTank");
             cursor = game.Content.Load<Texture2D>("cursor");
-            gameoverWriting = game.Content.Load<SpriteFont>("level");
+            gameoverWriting = game.Content.Load<SpriteFont>("Font/level");
 
             lastState = Keyboard.GetState();
         }

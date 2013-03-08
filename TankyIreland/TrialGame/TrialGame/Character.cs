@@ -25,7 +25,7 @@ namespace TrialGame
             Look = new Vector2(0, -1);
             
             //tank body
-            Sprite = Game1.Instance.Content.Load<Texture2D>("tank");
+            Sprite = Game1.Instance.Content.Load<Texture2D>("GamePlay/tank");
             Position = new Vector2(Game1.Instance.Background.Width / 2, Game1.Instance.Background.Height / 2);
             rot = 0.0f;
             center.X = Sprite.Width / 2;

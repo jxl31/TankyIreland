@@ -27,8 +27,8 @@ namespace TrialGame
         {
             this.game = game;
             cursor = game.Content.Load<Texture2D>("cursor");
-            levelWriting = game.Content.Load<SpriteFont>("level");
-            title = game.Content.Load<SpriteFont>("ScreenFont");
+            levelWriting = game.Content.Load<SpriteFont>("Font/level");
+            title = game.Content.Load<SpriteFont>("Font/ScreenFont");
         }
 
         public void Update()

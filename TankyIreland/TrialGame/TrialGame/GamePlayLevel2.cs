@@ -42,7 +42,7 @@ namespace TrialGame
 
             Game1.Instance.PowerFlag = true;
 
-            game.SpriteFont = Game1.Instance.Content.Load<SpriteFont>("Arial");
+            game.SpriteFont = Game1.Instance.Content.Load<SpriteFont>("Font/Arial");
         }
 
         public void Update(GameTime gameTime,float timeLimit)
