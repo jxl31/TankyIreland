@@ -17,6 +17,9 @@ namespace TrialGame
         Random random = new Random(System.DateTime.Now.Millisecond);
         int enemyWalkSpeed;
 
+        private SoundEffect tankFire { get; set; }
+        private SoundEffect tankExplosion { get; set; }
+
         float fireRate;
         float elapsedTime = 1.0f;
 
@@ -26,6 +29,9 @@ namespace TrialGame
             Look = new Vector2(0, 1);
             Sprite = Game1.Instance.Content.Load<Texture2D>("GamePlay/enemyTank");
             rot = 0.0f;
+
+            tankExplosion = Game1.Instance.Content.Load<SoundEffect>("tankexplosion");
+            tankFire = Game1.Instance.Content.Load<SoundEffect>("tankfire");
 
         }
 
@@ -57,6 +63,7 @@ namespace TrialGame
                 {
                     Alive = false;
                     Game1.Instance.CharacterBullets[i].Alive = false;
+                    tankExplosion.Play();
                 }
             }
 
@@ -71,6 +78,7 @@ namespace TrialGame
 
                 Game1.Instance.Entities.Add(enemyBullet);
                 elapsedTime = 0.0f;
+                tankFire.Play();
             }
             elapsedTime += timeDelta;
 

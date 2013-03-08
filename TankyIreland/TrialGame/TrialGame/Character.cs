@@ -16,6 +16,8 @@ namespace TrialGame
     {
         int walkspeed = 300;
         int rotationSpeed = 3;
+        SoundEffect tankFire { get; set; }
+        SoundEffect tankExplosion { get; set; }
 
         //tank body
         Vector2 center = new Vector2();
@@ -30,6 +32,9 @@ namespace TrialGame
             rot = 0.0f;
             center.X = Sprite.Width / 2;
             center.Y = Sprite.Height / 2;
+
+            tankFire = Game1.Instance.Content.Load<SoundEffect>("tankfire");
+            tankExplosion = Game1.Instance.Content.Load<SoundEffect>("tankexplosion");
         }
 
         float fireRate = 2.0f;
@@ -54,6 +59,7 @@ namespace TrialGame
                     Game1.Instance.Enemies[i].Alive = false;
                     Game1.Instance.enemyHitPlayer();
                     Game1.Instance.playerHitEnemy();
+                    tankExplosion.Play();
                 }
             }
 
@@ -64,6 +70,7 @@ namespace TrialGame
                     Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height / 2));
                     Game1.Instance.EnemyBullet[i].Alive = false;
                     rot = 0.0f;
+                    tankExplosion.Play();
                     Game1.Instance.enemyHitPlayer();
                     if (Game1.Instance.Lives <= 0)
                         Game1.Instance.GameOver();
@@ -85,6 +92,7 @@ namespace TrialGame
                     Game1.Instance.GameOver();
                 
                 elapsedTime = 0.0f;
+                tankFire.Play();
             }
 
             elapsedTime += timeDelta;
