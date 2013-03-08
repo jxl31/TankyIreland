@@ -14,7 +14,7 @@ namespace TrialGame
 {
     public class StartScreen
     {
-        private KeyboardState lastState;
+        private MouseState mState, lmState;
         private Game1 game;
         private SpriteFont Title { get; set; }
         private SpriteFont normalWriting { get; set; }
@@ -27,24 +27,23 @@ namespace TrialGame
         public StartScreen(Game1 game)
         {
             this.game = game;
-            lastState = Keyboard.GetState();
             Title = game.Content.Load<SpriteFont>("Font/ScreenFont");
             normalWriting = game.Content.Load<SpriteFont>("Font/Arial");
             cursor = game.Content.Load<Texture2D>("cursor");
             tankModel = game.Content.Load<Texture2D>("GamePlay/tank");
             enemyModel = game.Content.Load<Texture2D>("GamePlay/enemyTank");
             massiveWriting = game.Content.Load<SpriteFont>("Font/Massive");
+            lmState = mState = Mouse.GetState();
         }
 
         public void Update()
         {
-            KeyboardState kState = Keyboard.GetState();
-            MouseState mState = Mouse.GetState();
+            mState = Mouse.GetState();
             Vector2 mLook = new Vector2(mState.X, mState.Y);
             bool selected = false;
             hover =-1;
 
-            if(mState.LeftButton == ButtonState.Pressed) selected = true;
+            if(lmState.LeftButton == ButtonState.Released && mState.LeftButton == ButtonState.Pressed) selected = true;
 
             Vector2 textSize = Title.MeasureString("Play Game");
             Vector2 position = new Vector2(Game1.Instance.Width/2-(textSize.X/2),200.0f);
@@ -56,7 +55,7 @@ namespace TrialGame
             if (selected)
                 if (hover == 0) game.levelSelect();
 
-            lastState = kState;
+            lmState = mState;
         }
 
         public void Draw(SpriteBatch spriteBatch)

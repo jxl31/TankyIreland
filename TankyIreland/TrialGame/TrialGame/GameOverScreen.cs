@@ -14,7 +14,7 @@ namespace TrialGame
 {
     public class GameOverScreen
     {
-        private KeyboardState lastState;
+        private MouseState mState, lmState;
         private Game1 game;
         private SpriteFont title;
         private Texture2D enemy;
@@ -32,29 +32,20 @@ namespace TrialGame
             cursor = game.Content.Load<Texture2D>("cursor");
             gameoverWriting = game.Content.Load<SpriteFont>("Font/level");
 
-            lastState = Keyboard.GetState();
+            lmState = mState = Mouse.GetState();
         }
 
         public void Update()
         {
-            //KeyboardState kState = Keyboard.GetState();
-            //if (kState.IsKeyDown(Keys.Enter) && lastState.IsKeyUp(Keys.Enter))
-            //{
-            //    game.levelSelect();
-            //}
-            //else if (kState.IsKeyDown(Keys.Escape) && lastState.IsKeyUp(Keys.Escape))
-            //{
-            //    game.Exit();
-            //}
 
-            MouseState mState = Mouse.GetState();
+            mState = Mouse.GetState();
             Vector2 mLook = new Vector2(mState.X, mState.Y);
             bool selected = false;
             int startAt = 200;
             int border = 20;
             hover = -1;
 
-            if (mState.LeftButton == ButtonState.Pressed) selected = true;
+            if (lmState.LeftButton == ButtonState.Released && mState.LeftButton == ButtonState.Pressed) selected = true;
 
             for (int i = 0; i < choice.Count(); i++)
             {
@@ -72,7 +63,7 @@ namespace TrialGame
                 if (hover == 1) game.Exit();
             }
 
-            //lastState = kState;
+            lmState = mState;
         }
 
         public void Draw(SpriteBatch spriteBatch)

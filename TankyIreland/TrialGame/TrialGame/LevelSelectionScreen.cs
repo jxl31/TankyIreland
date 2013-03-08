@@ -16,7 +16,8 @@ namespace TrialGame
     {
         private Game1 game;
         private Texture2D cursor;
-        private MouseState mState = Mouse.GetState();
+        private MouseState mState;
+        private MouseState lmState;
         private SpriteFont levelWriting { get; set; }
         private SpriteFont title { get; set; }
 
@@ -26,6 +27,7 @@ namespace TrialGame
         public LevelSelectionScreen(Game1 game)
         {
             this.game = game;
+            lmState = mState = Mouse.GetState();
             cursor = game.Content.Load<Texture2D>("cursor");
             levelWriting = game.Content.Load<SpriteFont>("Font/level");
             title = game.Content.Load<SpriteFont>("Font/ScreenFont");
@@ -33,14 +35,14 @@ namespace TrialGame
 
         public void Update()
         {
-            MouseState mState = Mouse.GetState();
+            mState = Mouse.GetState();
             Vector2 mLook = new Vector2(mState.X, mState.Y);
             bool selected = false;
             int startAt = 150;
             int border = 20;
             hover = -1;
 
-            if (mState.LeftButton == ButtonState.Pressed) selected = true;
+            if (lmState.LeftButton == ButtonState.Released && mState.LeftButton == ButtonState.Pressed) selected = true;
 
             for (int i = 0; i < levelChoice.Count(); i++)
             {
@@ -59,6 +61,7 @@ namespace TrialGame
                 if (hover == 2) game.LevelThree();
                 if (hover == 3) game.Exit();
             }
+            lmState = mState;
         }
 
         public void Draw(SpriteBatch spriteBatch)
