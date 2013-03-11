@@ -12,19 +12,21 @@ using Microsoft.Xna.Framework.Media;
 
 namespace TrialGame
 {
-    public class GamePlayLevel3
+    public class GamePlayLevel2
     {
         private Game1 game;
         private float timer = 0f;
         private float enemySpawnTimer = 0f;
-        private int[] powerSpawn = new int[9];
+        private int[] powerSpawn = new int[7];
         private Random random = new Random(System.DateTime.Now.Millisecond);
         private Camera camera;
 
-        public GamePlayLevel3(Game1 game)
+        public GamePlayLevel2(Game1 game)
         {
             this.game = game;
             GameEntity character, enemy;
+
+            camera = new Camera(game.GraphicsDevice.Viewport);
 
             character = new Character();
             enemy = new Enemy();
@@ -32,13 +34,11 @@ namespace TrialGame
             game.Entities.Add(enemy);
             game.Enemies.Add(enemy);
 
-            camera = new Camera(game.GraphicsDevice.Viewport);
-
             for (int i = 0; i < game.Entities.Count; i++)
                 game.Entities[i].LoadContent();
 
-            for (int i = 0; i < 9; i++)
-                powerSpawn[i] = (int)random.Next(60);
+            for (int i = 0; i < 7; i++)
+                powerSpawn[i] = (int)random.Next(40);
 
             Game1.Instance.PowerFlag = true;
 
@@ -51,7 +51,7 @@ namespace TrialGame
             enemySpawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (Game1.Instance.PowerFlag)
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 7; i++)
                     if (powerSpawn[i] == (int)timer)
                     {
                         Game1.Instance.powerSpawner();
@@ -60,7 +60,7 @@ namespace TrialGame
 
             if (game.EnemyCount == 0)
             {
-                game.calculateScore(timer, game.Ammo, game.Lives);
+                game.calculateScore(timer, game.Ammo, game.Health);
                 game.Congrats();
             }
 
@@ -71,7 +71,7 @@ namespace TrialGame
                 enemySpawnTimer = Game1.Instance.enemySpawner();
 
             if (enemySpawnTimer > (float)3)
-                if (game.Enemies.Count() < 10)
+                if (game.Enemies.Count() < 8)
                     enemySpawnTimer = game.enemySpawner();
 
             for (int i = 0; i < game.Entities.Count(); i++)
@@ -93,7 +93,7 @@ namespace TrialGame
                 if (game.Enemies[i].Alive == false)
                     game.Enemies.RemoveAt(i);
 
-            camera.Update(gameTime, game.Entities[0].Position, game.Entities[0].BoundingBox);
+            camera.Update(gameTime, game.Entities[0].Position,game.Entities[0].BoundingBox);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

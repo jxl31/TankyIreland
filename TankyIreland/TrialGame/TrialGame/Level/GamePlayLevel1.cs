@@ -62,7 +62,7 @@ namespace TrialGame
 
             if (game.EnemyCount == 0)
             {
-                game.calculateScore(timer, game.Ammo, game.Lives);
+                game.calculateScore(timer, game.Ammo, game.Health);
                 game.Congrats();
             }
 
@@ -79,6 +79,7 @@ namespace TrialGame
             for (int i = 0; i < game.Entities.Count(); i++)
             {
                 game.Entities[i].Update(gameTime);
+                //can be in one foreach. can be implemented foreach(Enemy Character Bullet in Entities.OfType<class>()
                 if (game.Entities[i].Alive == false)
                     game.Entities.RemoveAt(i);
             }

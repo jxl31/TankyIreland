@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace TrialGame
 {
@@ -11,12 +13,21 @@ namespace TrialGame
     {
         Random random = new Random(System.DateTime.Now.Millisecond);
         public int which;
+        SoundEffect reload;
+        SoundEffect heal;
+        SoundEffect nuclear;
+        
 
         public override void LoadContent()
         {
-            which = random.Next(0,2);
+            which = random.Next(0, 2);
             Sprite = Game1.Instance.Content.Load<Texture2D>("PowerUps/power"+ which);
             Position = new Vector2(random.Next(Game1.Instance.Background.Width - Sprite.Width), random.Next(Game1.Instance.Background.Height-Sprite.Height));
+            reload = Game1.Instance.Content.Load<SoundEffect>("SoundEffect/reload");
+            heal = Game1.Instance.Content.Load<SoundEffect>("SoundEffect/heal");
+
+            //not working
+            nuclear = Game1.Instance.Content.Load<SoundEffect>("SoundEffect/nuclear");
         }
 
         public override void Update(GameTime gameTime)
@@ -44,21 +55,29 @@ namespace TrialGame
         {
             Alive = false;
             Game1.Instance.PowerFlag = true;
-            if (Game1.Instance.Lives < 3)
-                Game1.Instance.Lives++;
+            if (Game1.Instance.Health < 100)
+            {
+                Game1.Instance.Health += 20;
+                heal.Play();
+            }
+            if (Game1.Instance.Health > 100) Game1.Instance.Health = 100;
+
         }
 
         public void AmmoUp()
         {
             Alive = false;
             Game1.Instance.PowerFlag = true;
-            Game1.Instance.Ammo += 5;
+            Game1.Instance.Ammo += 10;
+            reload.Play();
         }
 
+        //not working
         public void Abomination()
         {
             Alive = false;
             Game1.Instance.PowerFlag = true;
+            nuclear.Play();
             for (int i = 0; i < Game1.Instance.Enemies.Count(); i++)
             {
                 Game1.Instance.Enemies[i].Alive = false;
@@ -70,22 +89,26 @@ namespace TrialGame
         {
             Alive = false;
             Game1.Instance.CharacterBullets[x].Alive = false;
+            heal.Play();
             Game1.Instance.PowerFlag = true;
-            if (Game1.Instance.Lives < 3)
-                Game1.Instance.Lives++;
+            if (Game1.Instance.Health < 100)
+                Game1.Instance.Health += 20;
         }
 
         public void AmmoUp(int x)
         {
             Alive = false;
+            reload.Play();
             Game1.Instance.CharacterBullets[x].Alive = false;
             Game1.Instance.PowerFlag = true;
-            Game1.Instance.Ammo += 5;
+            Game1.Instance.Ammo += 10;
         }
 
+        //not working
         public void Abomination(int x)
         {
             Alive = false;
+            nuclear.Play();
             Game1.Instance.CharacterBullets[x].Alive = false;
             Game1.Instance.PowerFlag = true;
             for (int i = 0; i < Game1.Instance.Enemies.Count(); i++)

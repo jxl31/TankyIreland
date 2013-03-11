@@ -64,8 +64,8 @@ namespace TrialGame
             Game1.Instance.GraphicsDevice.Clear(Color.SteelBlue);
             spriteBatch.Begin();
             CenterText("Tanky Ireland", 50.0f, Color.Red);
-            if (hover == 0) CenterText("Play Game", 200.0f, Color.Black);
-            else CenterText("Play Game", 200.0f, Color.Red);
+            if (hover == 0) CenterText("Play Game", 200.0f, Color.Red);
+            else CenterText("Play Game", 200.0f, Color.Black);
 
             Game1.Instance.spriteBatch.Draw(tankModel, new Vector2(150, 350), null, Color.White, 0.0f, new Vector2(0,0), 2.0f, SpriteEffects.None, 1);
             spriteBatch.DrawString(normalWriting, "Player", new Vector2(175, 320), Color.Black);

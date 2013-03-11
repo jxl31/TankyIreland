@@ -13,7 +13,12 @@ Content\GamePlay\enemyTank.xnb
 Content\Radar\radarImage.xnb
 Content\Radar\powerupmini.xnb
 Content\PowerUps\power0.xnb
-Content\PowerUps\power1.xnb
 Content\PowerUps\power2.xnb
-Content\tankexplosion.xnb
-Content\tankfire.xnb
+Content\GamePlay\healthBar.xnb
+Content\GamePlay\enemyBar.xnb
+Content\PowerUps\power1.xnb
+Content\SoundEffect\tankfire.xnb
+Content\SoundEffect\tankexplosion.xnb
+Content\SoundEffect\reload.xnb
+Content\SoundEffect\heal.xnb
+Content\SoundEffect\nuclear.xnb

@@ -14,7 +14,7 @@ namespace TrialGame
 {
     public class CharacterProjectile:GameEntity
     {
-        float maxDistance = 270.0f;
+        float maxDistance = 330.0f;
         public override void LoadContent()
         {
             Sprite = Game1.Instance.Content.Load<Texture2D>("GamePlay/PlayerBullet");

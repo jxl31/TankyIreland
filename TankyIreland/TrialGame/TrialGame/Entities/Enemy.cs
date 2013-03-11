@@ -30,8 +30,8 @@ namespace TrialGame
             Sprite = Game1.Instance.Content.Load<Texture2D>("GamePlay/enemyTank");
             rot = 0.0f;
 
-            tankExplosion = Game1.Instance.Content.Load<SoundEffect>("tankexplosion");
-            tankFire = Game1.Instance.Content.Load<SoundEffect>("tankfire");
+            tankExplosion = Game1.Instance.Content.Load<SoundEffect>("SoundEffect/tankexplosion");
+            tankFire = Game1.Instance.Content.Load<SoundEffect>("SoundEffect/tankfire");
 
         }
 
@@ -92,7 +92,7 @@ namespace TrialGame
             Vector2 distance = Position - Game1.Instance.Entities[0].Position;
             float distanceBetweenEnemyPlayer = distance.Length();
 
-            if (distanceBetweenEnemyPlayer <= 300)
+            if (distanceBetweenEnemyPlayer <= 400)
             {
                 rot = (float)Math.Atan2(distance.Y, distance.X);
             }

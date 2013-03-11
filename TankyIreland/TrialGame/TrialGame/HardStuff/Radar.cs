@@ -31,7 +31,7 @@ namespace TrialGame
             powerUpDot = Game1.Instance.Content.Load<Texture2D>("Radar/powerupmini");
             radarImage = Game1.Instance.Content.Load<Texture2D>("Radar/radarImage");
             
-
+            //center of the radar also the player
             radarCenter = new Vector2(radarImage.Width / 2.0f, radarImage.Height / 2.0f);
         }
 
@@ -47,12 +47,12 @@ namespace TrialGame
             foreach (Enemy enemy in Game1.Instance.Enemies)
             {
                 Vector2 scale = enemy.Position - Game1.Instance.Entities[0].Position;
-                float distanceBetweenEnemyAndPlayer = scale.Length();
-
+                float distanceBetweenEnemyAndPlayer = scale.Length(); //distance between player position and enemy. the length will determine
+                                                                      //if the enemy will be in the radar. radar view is 1000 radius
                 if (distanceBetweenEnemyAndPlayer < radarView)
                 {
-                    scale *= radarRadius / radarView;
-                    scale += radarOffset;
+                    scale *= radarRadius / radarView; //how far the radar can see
+                    scale += radarOffset; //scale of the radar in the bottom of the screen
 
                     spriteBatch.Draw(enemyDot, scale, Color.White);
                 }
@@ -73,8 +73,6 @@ namespace TrialGame
             }
 
             spriteBatch.Draw(playerDot, radarOffset, Color.White);
-        }
-
-        
+        } 
     }
 }

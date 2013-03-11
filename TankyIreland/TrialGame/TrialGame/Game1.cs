@@ -57,11 +57,11 @@ namespace TrialGame
 
         public void playerHitEnemy() { EnemyCount--; }
 
-        public void enemyHitPlayer() { Lives--;  }
+        public void enemyHitPlayer() { Health-=10;  }
 
         public float TimeLimit { get; set; }
         public int EnemyCount { get; set; }
-        public int Lives { get; set; }
+        public int Health { get; set; }
         public int Ammo { get; set; }
         public int GameIndex { get; set; }
         public bool PowerFlag { get; set; }
@@ -116,9 +116,9 @@ namespace TrialGame
             levelSelectionScreen = null;
 
             Ammo = 20;
-            TimeLimit = 30f;
+            TimeLimit = 50f;
             EnemyCount = 10;
-            Lives = 5;
+            Health = 100;
         }
 
         public void LevelTwo()
@@ -130,9 +130,9 @@ namespace TrialGame
             levelSelectionScreen = null;
 
             Ammo = 40;
-            TimeLimit = 40f;
+            TimeLimit = 80f;
             EnemyCount = 15;
-            Lives = 5;
+            Health = 100;
         }
 
         public void LevelThree()
@@ -144,9 +144,9 @@ namespace TrialGame
             levelSelectionScreen = null;
 
             Ammo = 60;
-            TimeLimit = 60f;
+            TimeLimit = 120f;
             EnemyCount = 25;
-            Lives = 5;
+            Health = 100;
         }
 
         public void calculateScore(float timer, int ammoLeft, int livesLeft)

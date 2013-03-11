@@ -33,8 +33,8 @@ namespace TrialGame
             center.X = Sprite.Width / 2;
             center.Y = Sprite.Height / 2;
 
-            tankFire = Game1.Instance.Content.Load<SoundEffect>("tankfire");
-            tankExplosion = Game1.Instance.Content.Load<SoundEffect>("tankexplosion");
+            tankFire = Game1.Instance.Content.Load<SoundEffect>("SoundEffect/tankfire");
+            tankExplosion = Game1.Instance.Content.Load<SoundEffect>("SoundEffect/tankexplosion");
         }
 
         float fireRate = 2.0f;
@@ -54,8 +54,8 @@ namespace TrialGame
             {
                 if (BoundingBox.Intersects(Game1.Instance.Enemies[i].BoundingBox))
                 {
-                    Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height / 2));
-                    rot = 0.0f;
+                    //Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height / 2));
+                    //rot = 0.0f;
                     Game1.Instance.Enemies[i].Alive = false;
                     Game1.Instance.enemyHitPlayer();
                     Game1.Instance.playerHitEnemy();
@@ -67,12 +67,12 @@ namespace TrialGame
             {
                 if (BoundingBox.Intersects(Game1.Instance.EnemyBullet[i].BoundingBox))
                 {
-                    Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height / 2));
+                    //Position = new Vector2((Game1.Instance.Background.Width / 2), (Game1.Instance.Background.Height / 2));
                     Game1.Instance.EnemyBullet[i].Alive = false;
-                    rot = 0.0f;
+                    //rot = 0.0f;
                     tankExplosion.Play();
                     Game1.Instance.enemyHitPlayer();
-                    if (Game1.Instance.Lives <= 0)
+                    if (Game1.Instance.Health <= 0)
                         Game1.Instance.GameOver();
                 }
             }
