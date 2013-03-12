@@ -20,6 +20,7 @@ namespace TrialGame
         Radar radar;
         Texture2D healthBar;
         Texture2D enemyBar;
+        SpriteFont massive;
 
         public Camera(Viewport playerView)
         {
@@ -27,6 +28,7 @@ namespace TrialGame
             radar = new Radar();
             healthBar = Game1.Instance.Content.Load<Texture2D>("GamePlay/healthBar");
             enemyBar = Game1.Instance.Content.Load<Texture2D>("GamePlay/enemyBar");
+            massive = Game1.Instance.Content.Load<SpriteFont>("Font/Massive");
         }
 
         public void Update(GameTime gameTime, Vector2 playerPos, Rectangle playerRec)
@@ -73,16 +75,23 @@ namespace TrialGame
 
         public void Draw(SpriteBatch spriteBatch, float timer)
         {
+            if (Game1.Instance.Paused)
+            {
+                Game1.Instance.GraphicsDevice.Clear(Color.SteelBlue);
+                spriteBatch.DrawString(massive, "Paused", new Vector2(center.X + 400 -70, center.Y + 300 - 40), Color.Red);
+            }
+            else
+            {
+                spriteBatch.DrawString(Game1.Instance.SpriteFont, "Health:", new Vector2(center.X, center.Y), Color.White);
+                spriteBatch.Draw(healthBar, new Rectangle((int)center.X + 2, (int)center.Y + 25, Game1.Instance.Health, 15), Color.White);
+                spriteBatch.DrawString(Game1.Instance.SpriteFont, "Enemy Left:", new Vector2(center.X, center.Y + 45), Color.White);
+                spriteBatch.Draw(enemyBar, new Rectangle((int)center.X + 2, (int)center.Y + 70, Game1.Instance.EnemyCount * 10, 15), Color.Black);
+                spriteBatch.DrawString(Game1.Instance.SpriteFont, "Ammos Left: " + Game1.Instance.Ammo, new Vector2(center.X, center.Y + 90), Color.White);
+                spriteBatch.DrawString(Game1.Instance.SpriteFont, "Time: " + timer.ToString("0.00"), new Vector2(center.X + 325, center.Y + 10), Color.Black);
+                spriteBatch.DrawString(Game1.Instance.SpriteFont, "Time Limit: " + Game1.Instance.TimeLimit.ToString("0.00"), new Vector2(center.X + 600, center.Y + 10), Color.Red);
 
-            //spriteBatch.DrawString(Game1.Instance.SpriteFont, "Health:", new Vector2(center.X, center.Y), Color.White);
-            //spriteBatch.Draw(healthBar, new Rectangle((int)center.X + 2, (int)center.Y + 25, Game1.Instance.Health, 15), Color.White);
-            //spriteBatch.DrawString(Game1.Instance.SpriteFont, "Enemy Left:", new Vector2(center.X, center.Y + 45), Color.White);
-            //spriteBatch.Draw(enemyBar, new Rectangle((int)center.X + 2, (int)center.Y + 70, Game1.Instance.EnemyCount * 10, 15), Color.Black);
-            //spriteBatch.DrawString(Game1.Instance.SpriteFont, "Ammos Left: " + Game1.Instance.Ammo, new Vector2(center.X, center.Y + 90), Color.White);
-            //spriteBatch.DrawString(Game1.Instance.SpriteFont, "Time: " + timer.ToString("0.00"), new Vector2(center.X + 325, center.Y+10), Color.Black);
-            //spriteBatch.DrawString(Game1.Instance.SpriteFont, "Time Limit: " + Game1.Instance.TimeLimit.ToString("0.00"), new Vector2(center.X + 600, center.Y + 10), Color.Red);
-
-            radar.Draw(spriteBatch);
+                radar.Draw(spriteBatch);
+            }
         }
     }
 }

@@ -15,10 +15,12 @@ namespace TrialGame
     public class CharacterProjectile:GameEntity
     {
         float maxDistance = 330.0f;
+        SoundEffect tankExplosion;
         public override void LoadContent()
         {
             Sprite = Game1.Instance.Content.Load<Texture2D>("GamePlay/PlayerBullet");
             rot = Game1.Instance.Entities[0].rot;
+            tankExplosion = Game1.Instance.Content.Load<SoundEffect>("SoundEffect/tankexplosion");
         }
 
         public override void Update(GameTime gameTime)
@@ -45,6 +47,7 @@ namespace TrialGame
                     Alive = !Alive;
                     Game1.Instance.Enemies[i].Alive = false;
                     Game1.Instance.playerHitEnemy();
+                    tankExplosion.Play();
                 }   
             }
 

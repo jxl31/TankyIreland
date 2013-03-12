@@ -107,8 +107,7 @@ namespace TrialGame
                             camera.transform);
             if (Game1.Instance.Paused)
             {
-                Game1.Instance.GraphicsDevice.Clear(Color.Red);
-                spriteBatch.DrawString(game.SpriteFont, "Paused", game.Entities[0].Position, Color.Black);
+                camera.Draw(spriteBatch,timer);
             }
             else
             {

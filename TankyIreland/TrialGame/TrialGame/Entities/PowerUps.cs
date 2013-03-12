@@ -60,7 +60,11 @@ namespace TrialGame
                 Game1.Instance.Health += 20;
                 heal.Play();
             }
-            if (Game1.Instance.Health > 100) Game1.Instance.Health = 100;
+            else
+            {
+                Game1.Instance.Health = 100;
+                heal.Play();
+            }
 
         }
 
@@ -89,10 +93,17 @@ namespace TrialGame
         {
             Alive = false;
             Game1.Instance.CharacterBullets[x].Alive = false;
-            heal.Play();
             Game1.Instance.PowerFlag = true;
             if (Game1.Instance.Health < 100)
+            {
                 Game1.Instance.Health += 20;
+                heal.Play();
+            }
+            else
+            {
+                Game1.Instance.Health = 100;
+                heal.Play();
+            }
         }
 
         public void AmmoUp(int x)

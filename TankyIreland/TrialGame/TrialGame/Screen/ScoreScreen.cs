@@ -15,7 +15,6 @@ namespace TrialGame
 {
     public class ScoreScreen
     {
-        private Texture2D background;
         private StreamReader sr;
         private string line;
         private Game1 game;
@@ -24,7 +23,6 @@ namespace TrialGame
         public ScoreScreen(Game1 game)
         {
             this.game = game;
-            background = game.Content.Load<Texture2D>("screenBackground");
             cursor = game.Content.Load<Texture2D>("cursor");
         }
 
@@ -32,20 +30,20 @@ namespace TrialGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            game.GraphicsDevice.Clear(Color.SteelBlue);
             int i = 0;
             sr = new StreamReader("scores.txt");
             spriteBatch.Begin();
             Vector2 textSize = Game1.Instance.SpriteFont.MeasureString("Hello");
-            spriteBatch.Draw(background, Vector2.Zero, Color.White);
             int startAt = 100;
             int border = 5;
 
-            CentreText("Scores",10,Color.Blue);
+            CentreText("Scores",10,Color.Red);
 
             while ((line = sr.ReadLine()) != null)
             {
                 Vector2 position = new Vector2(50, startAt + ((textSize.Y + border) * i));
-                spriteBatch.DrawString(game.SpriteFont,(i+1)+". "+line, position, Color.Orange);
+                spriteBatch.DrawString(game.SpriteFont,(i+1)+". "+line, position, Color.Black);
                 i++;
             }
             sr.Close();

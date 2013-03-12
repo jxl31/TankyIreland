@@ -16,6 +16,8 @@ namespace TrialGame
     {
         Enemy enemy;
         float maxDistance = 270.0f;
+        SoundEffect tankExplosion;
+
         public EnemyProjectile(Enemy enemy, float rot)
         {
             this.enemy = enemy;
@@ -26,6 +28,7 @@ namespace TrialGame
         public override void LoadContent()
         {
             Sprite = Game1.Instance.Content.Load<Texture2D>("GamePlay/enemyBullet");
+            tankExplosion = Game1.Instance.Content.Load<SoundEffect>("SoundEffect/tankexplosion");
 
         }
 

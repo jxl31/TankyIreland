@@ -92,7 +92,7 @@ namespace TrialGame
             Vector2 distance = Position - Game1.Instance.Entities[0].Position;
             float distanceBetweenEnemyPlayer = distance.Length();
 
-            if (distanceBetweenEnemyPlayer <= 400)
+            if (distanceBetweenEnemyPlayer <= 350)
             {
                 rot = (float)Math.Atan2(distance.Y, distance.X);
             }
